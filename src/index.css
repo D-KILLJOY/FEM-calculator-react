@@ -1,68 +1,113 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: LeagueSpartan;
+    src: url("../public/League_Spartan/LeagueSpartan-VariableFont_wght.ttf")
+        format("truetype");
+    font-style: normal;
+    font-weight: 100 900;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    --league-spartan: LeagueSpartan, sans-serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    --main-bg: hsl(222, 26%, 31%);
+    --toggle-bg: hsl(223, 31%, 20%);
+    --screen-bg: hsl(224, 36%, 15%);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --secondary-key-bg: hsl(225, 21%, 49%);
+    --secondary-key-shadow: hsl(224, 28%, 35%);
+
+    --toggle-key-bg: hsl(6, 63%, 50%);
+    --key-shadow: hsl(6, 70%, 34%);
+
+    --primary-key-bg: hsl(0, 0%, 90%);
+    --primary-key-shadow: hsl(28, 16%, 65%);
+
+    --primary-text: hsl(221, 14%, 31%);
+    --secondary-text: hsl(0, 100%, 100%);
+    --equal-btn: hsl(0, 100%, 100%);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* .color__one {
+
+} */
+
+.color__two {
+    --main-bg: hsl(0, 0%, 90%);
+    --toggle-bg: hsl(0, 5%, 81%);
+    --screen-bg: hsl(0, 0%, 93%);
+
+    --secondary-key-bg: hsl(185, 42%, 37%);
+    --secondary-key-shadow: hsl(185, 58%, 25%);
+
+    --toggle-key-bg: hsl(25, 98%, 40%);
+    --key-shadow: hsl(25, 99%, 27%);
+
+    --primary-key-bg: hsl(0, 0%, 90%);
+    --primary-key-shadow: hsl(35, 11%, 61%);
+
+    --primary-text: hsl(60, 10%, 19%);
+    --secondary-text: hsl(0, 100%, 100%);
+    --equal-btn: hsl(0, 100%, 100%);
 }
-a:hover {
-  color: #535bf2;
+
+.color__three {
+    --main-bg: hsl(268, 75%, 9%);
+    --toggle-bg: hsl(268, 71%, 12%);
+
+    --screen-bg: hsl(268, 71%, 12%);
+
+    --secondary-key-bg: hsl(281, 89%, 26%);
+    --secondary-key-shadow: hsl(285, 91%, 52%);
+    --toggle-key-bg: hsl(176, 100%, 44%);
+    --key-shadow: hsl(177, 92%, 70%);
+    --primary-key-bg: hsl(268, 47%, 21%);
+    --primary-key-shadow: hsl(290, 70%, 36%);
+    --primary-text: hsl(52, 100%, 62%);
+    --secondary-text: hsl(0, 100%, 100%);
+
+    --equal-btn: hsl(198, 20%, 13%);
+}
+
+@theme {
+    --color-main-bg: var(--main-bg);
+    --color-toggle-bg: var(--toggle-bg);
+
+    --color-screen-bg: var(--screen-bg);
+
+    --color-secondary-key-bg: var(--secondary-key-bg);
+    --color-secondary-key-shadow: var(--secondary-key-shadow);
+    --color-toggle-key-bg: var(--toggle-key-bg);
+    --color-key-shadow: var(--key-shadow);
+    --color-primary-key-bg: var(--primary-key-bg);
+    --color-primary-key-shadow: var(--primary-key-shadow);
+    --color-primary-text: var(--primary-text);
+    --color-secondary-text: var(--secondary-text);
+
+    --color-equal-btn: var(--equal-btn);
+    --font-league-spartan: var(--league-spartan);
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    @apply bg-main-bg font-league-spartan;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.btn__con {
+    @apply grid grid-cols-4 justify-between gap-4;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+    @apply bg-primary-key-bg rounded-md h-15 text-3xl font-bold shadow-[0px_5px_0px_0px_var(--primary-key-shadow)];
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.equal__btn {
+    @apply col-span-2  bg-toggle-key-bg h-17 shadow-key-shadow text-equal-btn;
+}
+
+.reset__btn {
+    @apply col-span-2 text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow h-17 uppercase text-2xl;
+}
+.del__btn {
+    @apply text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow  uppercase text-2xl;
 }
