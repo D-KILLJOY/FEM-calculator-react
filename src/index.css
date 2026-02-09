@@ -86,11 +86,19 @@
 }
 
 body {
-    @apply bg-main-bg font-league-spartan;
+    @apply bg-main-bg font-league-spartan w-full h-screen;
+}
+
+.calc__screen {
+    scrollbar-width: none;
 }
 
 .btn__con {
     @apply grid grid-cols-4 justify-between gap-4;
+}
+
+button {
+    @apply cursor-pointer;
 }
 
 .calc__key {
