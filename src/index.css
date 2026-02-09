@@ -29,10 +29,6 @@
     --equal-btn: hsl(0, 100%, 100%);
 }
 
-/* .color__one {
-
-} */
-
 .color__two {
     --main-bg: hsl(0, 0%, 90%);
     --toggle-bg: hsl(0, 5%, 81%);
@@ -97,16 +93,16 @@ body {
     @apply grid grid-cols-4 justify-between gap-4;
 }
 
-button {
+.calc__key {
     @apply bg-primary-key-bg rounded-md h-15 text-3xl font-bold shadow-[0px_5px_0px_0px_var(--primary-key-shadow)];
 }
 
 .equal__btn {
-    @apply col-span-2  bg-toggle-key-bg h-17 shadow-key-shadow text-equal-btn;
+    @apply col-span-2  bg-toggle-key-bg h-16 shadow-key-shadow text-equal-btn;
 }
 
 .reset__btn {
-    @apply col-span-2 text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow h-17 uppercase text-2xl;
+    @apply col-span-2 text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow h-16 uppercase text-2xl;
 }
 .del__btn {
     @apply text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow  uppercase text-2xl;
