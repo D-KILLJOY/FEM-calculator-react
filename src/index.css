@@ -27,6 +27,8 @@
     --primary-text: hsl(221, 14%, 31%);
     --secondary-text: hsl(0, 100%, 100%);
     --equal-btn: hsl(0, 100%, 100%);
+    --reset-btn: hsl(0, 100%, 100%);
+    --del-btn: hsl(0, 100%, 100%);
 }
 
 .color__two {
@@ -46,6 +48,8 @@
     --primary-text: hsl(60, 10%, 19%);
     --secondary-text: hsl(0, 100%, 100%);
     --equal-btn: hsl(0, 100%, 100%);
+    --reset-btn: hsl(0, 100%, 100%);
+    --del-btn: hsl(0, 100%, 100%);
 }
 
 .color__three {
@@ -64,6 +68,8 @@
     --secondary-text: hsl(0, 100%, 100%);
 
     --equal-btn: hsl(198, 20%, 13%);
+    --reset-text: hsl(0, 100%, 100%);
+    --del-text: hsl(0, 100%, 100%);
 }
 
 @theme {
@@ -82,11 +88,17 @@
     --color-secondary-text: var(--secondary-text);
 
     --color-equal-btn: var(--equal-btn);
+    --color-reset-btn: var(--reset-btn);
+    --color-del-btn: var(--del-btn);
     --font-league-spartan: var(--league-spartan);
 }
 
 body {
     @apply bg-main-bg font-league-spartan w-full h-screen;
+}
+
+.calc__screen::-webkit-scrollbar {
+    display: none;
 }
 
 .calc__screen {
@@ -102,16 +114,17 @@ button {
 }
 
 .calc__key {
-    @apply bg-primary-key-bg rounded-md h-15 text-3xl font-bold shadow-[0px_5px_0px_0px_var(--primary-key-shadow)];
+    @apply bg-primary-key-bg text-primary-text rounded-md h-15 text-3xl font-bold shadow-[0px_5px_0px_0px_var(--primary-key-shadow)];
 }
 
 .equal__btn {
-    @apply col-span-2  bg-toggle-key-bg h-16 shadow-key-shadow text-equal-btn;
+    @apply col-span-2 bg-toggle-key-bg h-16 shadow-key-shadow text-equal-btn;
 }
 
 .reset__btn {
-    @apply col-span-2 text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow h-16 uppercase text-2xl;
+    @apply col-span-2 text-reset-btn bg-secondary-key-bg shadow-secondary-key-shadow h-16 uppercase text-2xl;
 }
+
 .del__btn {
-    @apply text-equal-btn bg-secondary-key-bg shadow-secondary-key-shadow  uppercase text-2xl;
+    @apply text-del-btn bg-secondary-key-bg shadow-secondary-key-shadow uppercase text-2xl;
 }

@@ -5,16 +5,15 @@ type Theme = "color__one" | "color__two" | "color__three";
 
 function App() {
     const [currentTheme, setCurrentTheme] = useState<Theme>(getInitialTheme);
-    // const [displayValue, setDisplayValue] = useState<string>("0");
+    const [dispValue, setdispValue] = useState<string>("");
     const [calcValue, setCalcValue] = useState<string>("");
-    const formatter = new Intl.NumberFormat("en-US");
+    // const formatter = new Intl.NumberFormat("en-US");
     const parser = new Parser({
         operators: {
             logical: false,
             comparison: false,
         },
     });
-    console.log(formatter.format(1234567));
 
     function getInitialTheme() {
         const savedTheme = localStorage.getItem("theme");
@@ -58,61 +57,50 @@ function App() {
         }
     }
 
-    function btnInput(val: string) {
-        switch (val) {
-            case "0":
-                setCalcValue((prev) => (prev += "0"));
-                break;
-            case "1":
-                setCalcValue((prev) => (prev += "1"));
-                break;
-            case "2":
-                setCalcValue((prev) => (prev += "2"));
-                break;
-            case "3":
-                setCalcValue((prev) => (prev += "3"));
-                break;
-            case "4":
-                setCalcValue((prev) => (prev += "4"));
-                break;
-            case "5":
-                setCalcValue((prev) => (prev += "5"));
-                break;
-            case "6":
-                setCalcValue((prev) => (prev += "6"));
-                break;
-            case "7":
-                setCalcValue((prev) => (prev += "7"));
-                break;
-            case "8":
-                setCalcValue((prev) => (prev += "8"));
-                break;
-            case "9":
-                setCalcValue((prev) => (prev += "9"));
-                break;
-            case ".":
-                setCalcValue((prev) => (prev += "."));
-                break;
-            case "+":
-                setCalcValue((prev) => (prev += "+"));
-                break;
-            case "-":
-                setCalcValue((prev) => (prev += "-"));
-                break;
-            case "/":
-                setCalcValue((prev) => (prev += "/"));
-                break;
-            case "x":
-                setCalcValue((prev) => (prev += "x"));
-                break;
+    function formatDisplay(value: string) {
+        if (value === "" || value === "-") return value;
 
-            default:
-                break;
+        const num = Number(value.replace(/,/g, ""));
+        if (isNaN(num)) return value;
+
+        return formatNumberString(value);
+    }
+
+    function btnInput(val: string) {
+        const operators = ["+", "-", "/", "x"];
+        const raw = calcValue.replace(/,/g, "");
+
+        if (operators.includes(val)) {
+            // Allow - at the start (for negative numbers)
+            if (val === "-" && raw === "") {
+                setCalcValue(formatDisplay(val));
+                return;
+            }
+
+            if (raw === "") {
+                return;
+            }
+
+            if (operators.includes(raw[raw.length - 1])) {
+                if (raw.length === 1) {
+                    return;
+                }
+                const newRaw = raw.slice(0, -1) + val;
+                setCalcValue(formatDisplay(newRaw));
+                return;
+            }
         }
+
+        const newRaw = raw + val;
+        const parts = newRaw.split(".");
+        if (parts.length > 2) return;
+        setCalcValue(formatDisplay(newRaw));
     }
 
     function clearInput() {
-        setCalcValue((prev) => prev.slice(0, -1));
+        const raw = calcValue.replace(/,/g, "").slice(0, -1);
+
+        setCalcValue(raw ? formatNumberString(raw) : "");
     }
 
     function resetInput() {
@@ -129,25 +117,48 @@ function App() {
         setCalcValue(answer);
     }
 
+    useEffect(() => {
+        setdispValue(formatNumberString(calcValue));
+    }, [calcValue]);
+
+    function formatNumberString(value: string) {
+        if (!value || value === "") return "0";
+
+        const isNegative = value.startsWith("-");
+        const raw = isNegative ? value.slice(1) : value;
+
+        const parts = raw.split(".");
+        const integerPart = parts[0];
+        const decimalPart = parts[1];
+
+        const formattedInt = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        const formatted = decimalPart
+            ? `${formattedInt}.${decimalPart}`
+            : formattedInt;
+
+        return isNegative ? `-${formatted}` : formatted;
+    }
+
     return (
         <section className="flex justify-center items-center h-screen w-full">
             <main className="px-6 py-8 pb-2 w-full max-w-130 ">
                 <nav className="flex justify-between items-end mb-5">
                     <h1
-                        className={`${currentTheme === "color__two" ? "text-primary-text" : "text-secondary-text"} font-bold text-3xl `}
+                        className={`${currentTheme === "color__two" || currentTheme === "color__three" ? "text-primary-text" : "text-secondary-text"} font-bold text-3xl `}
                     >
                         calc
                     </h1>
                     <div className="flex items-end gap-7">
                         <p
-                            className={`${currentTheme === "color__two" ? "text-primary-text" : "text-secondary-text"} uppercase text-xs font-semibold`}
+                            className={`${currentTheme === "color__two" || currentTheme === "color__three" ? "text-primary-text" : "text-secondary-text"} uppercase text-xs font-semibold`}
                         >
                             theme
                         </p>
 
                         <div className=" w-20">
                             <div
-                                className={`${currentTheme === "color__two" ? "text-primary-text" : "text-secondary-text"} text-sm flex  justify-between px-2.5  font-bold`}
+                                className={`${currentTheme === "color__two" || currentTheme === "color__three" ? "text-primary-text" : "text-secondary-text"} text-sm flex  justify-between px-2.5  font-bold`}
                             >
                                 <p>1</p>
                                 <p>2</p>
@@ -173,9 +184,9 @@ function App() {
                 </nav>
                 <section>
                     <div
-                        className={`${currentTheme === "color__two" ? "text-primary-text" : "text-secondary-text"} bg-screen-bg h-25 rounded-xl text-right p-7 text-4xl font-bold mb-5 overflow-auto calc__screen tracking-wider`}
+                        className={`${currentTheme === "color__two" || currentTheme === "color__three" ? "text-primary-text" : "text-secondary-text"} bg-screen-bg h-25 rounded-xl text-right px-5 py-7 text-4xl font-bold mb-5 overflow-scroll whitespace-nowrap calc__screen tracking-wider`}
                     >
-                        {calcValue}
+                        {dispValue}
                     </div>
                     <section className="bg-toggle-bg rounded-xl p-5">
                         <div className="btn__con">
