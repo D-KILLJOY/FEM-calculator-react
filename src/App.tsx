@@ -184,14 +184,17 @@ function App() {
 
                             <div className="bg-toggle-bg h-7 rounded-full flex items-center p-1.5 justify-between">
                                 <button
+                                    type="button"
                                     onClick={() => toggleTheme(1)}
                                     className={`${currentTheme === "color__one" ? "bg-toggle-key-bg" : ""} rounded-full  w-4.5 h-4.5 justify-self-center`}
                                 ></button>
                                 <button
+                                    type="button"
                                     onClick={() => toggleTheme(2)}
                                     className={`${currentTheme === "color__two" ? "bg-toggle-key-bg" : ""} rounded-full  w-4.5 h-4.5 justify-self-center`}
                                 ></button>
                                 <button
+                                    type="button"
                                     onClick={() => toggleTheme(3)}
                                     className={`${currentTheme === "color__three" ? "bg-toggle-key-bg" : ""} rounded-full  w-4.5 h-4.5 justify-self-center`}
                                 ></button>
@@ -208,24 +211,28 @@ function App() {
                     <section className="bg-toggle-bg rounded-xl p-5">
                         <div className="btn__con">
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("7")}
                             >
                                 7
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("8")}
                             >
                                 8
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("9")}
                             >
                                 9
                             </button>
                             <button
+                                type="button"
                                 className="calc__key del__btn"
                                 onClick={() => clearInput()}
                             >
@@ -233,24 +240,28 @@ function App() {
                             </button>
 
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("4")}
                             >
                                 4
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("5")}
                             >
                                 5
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("6")}
                             >
                                 6
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("+")}
                             >
@@ -258,24 +269,28 @@ function App() {
                             </button>
 
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("1")}
                             >
                                 1
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("2")}
                             >
                                 2
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("3")}
                             >
                                 3
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("-")}
                             >
@@ -283,24 +298,28 @@ function App() {
                             </button>
 
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput(".")}
                             >
                                 .
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("0")}
                             >
                                 0
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("/")}
                             >
                                 /
                             </button>
                             <button
+                                type="button"
                                 className="calc__key"
                                 onClick={() => btnInput("x")}
                             >
@@ -308,12 +327,14 @@ function App() {
                             </button>
 
                             <button
+                                type="button"
                                 className="calc__key reset__btn"
                                 onClick={() => resetInput()}
                             >
                                 reset
                             </button>
                             <button
+                                type="button"
                                 className="calc__key equal__btn"
                                 onClick={() => calcInput(calcValue)}
                             >
