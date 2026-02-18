@@ -7,7 +7,6 @@ function App() {
     const [currentTheme, setCurrentTheme] = useState<Theme>(getInitialTheme);
     const [dispValue, setdispValue] = useState<string>("");
     const [calcValue, setCalcValue] = useState<string>("");
-    // const formatter = new Intl.NumberFormat("en-US");
     const parser = new Parser({
         operators: {
             logical: false,
@@ -71,15 +70,12 @@ function App() {
         const raw = calcValue.replace(/,/g, "");
 
         if (operators.includes(val)) {
-            // Allow - at the start (for negative numbers)
             if (val === "-" && raw === "") {
                 setCalcValue(formatDisplay(val));
                 return;
             }
 
-            if (raw === "") {
-                return;
-            }
+            if (raw === "") return;
 
             if (operators.includes(raw[raw.length - 1])) {
                 if (raw.length === 1) {
@@ -91,9 +87,25 @@ function App() {
             }
         }
 
+        if (val === ".") {
+            if (raw === "") {
+                setCalcValue("0.");
+                return;
+            }
+
+            const lastChar = raw[raw.length - 1];
+
+            if (["+", "-", "/", "x"].includes(lastChar)) {
+                setCalcValue(raw + "0.");
+                return;
+            }
+
+            const lastNumber = raw.split(/[+\-x/]/).pop();
+
+            if (lastNumber?.includes(".")) return;
+        }
+
         const newRaw = raw + val;
-        const parts = newRaw.split(".");
-        if (parts.length > 2) return;
         setCalcValue(formatDisplay(newRaw));
     }
 
@@ -124,17 +136,22 @@ function App() {
     function formatNumberString(value: string) {
         if (!value || value === "") return "0";
 
+        if (!/^-?\d*\.?\d*$/.test(value)) {
+            return value;
+        }
+
         const isNegative = value.startsWith("-");
         const raw = isNegative ? value.slice(1) : value;
 
-        const parts = raw.split(".");
-        const integerPart = parts[0];
-        const decimalPart = parts[1];
+        const hasDecimal = raw.includes(".");
+        const [integerPart, decimalPart] = raw.split(".");
 
-        const formattedInt = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const safeInteger = integerPart || "0";
 
-        const formatted = decimalPart
-            ? `${formattedInt}.${decimalPart}`
+        const formattedInt = safeInteger.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        const formatted = hasDecimal
+            ? `${formattedInt}.${decimalPart ?? ""}`
             : formattedInt;
 
         return isNegative ? `-${formatted}` : formatted;
